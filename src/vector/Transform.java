@@ -1,7 +1,9 @@
 package vector;
 
-import utils.Array;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
+import utils.Array;
 public class Transform {
 	
 	private Vector vector;
@@ -10,87 +12,145 @@ public class Transform {
 		this.vector = vector;
 	}
 
-	// Translação (em 2D e em 3D)
+	// TODO Translacao (em 2D e em 3D)
 	public Vector translate2D(int dx, int dy) {
-		return vector.add(new Vector((double) dx,(double) dy));
+		return vector.add(new Vector( (double) dx, (double) dy));
 	}
 
 	public Vector translate3D(int dx, int dy, int dz) {
-		return vector.add(new Vector((double) dx,(double) dy, (double) dz));
+		return vector.add(new Vector( (double) dx, (double) dy, (double) dz));
 	}
 
-	// Rotação (em 2D e em todos os eixos em 3D)
+	// TODO Rotacao (em 2D e em todos os eixos em 3D)
 	public Vector rotation2D(int angle) {
-		double vangle = 0.01 * angle * -1;
-		return vector.transform(new double[][] {
-			{0.0,vangle},
-			{1.0, 0.0}
+		return vector.transform(
+				new double[][] { 
+					{ cos(angle), -sin(angle) }, 
+					{ sin(angle), cos(angle) } 
+					});
+	}
+
+	public Vector rotation3DZ(int angle) {
+		return vector.push(1.0).transform(new double[][] {
+			{cos(angle), -sin(angle), 0.0, 0.0},
+			{sin(angle),  cos(angle), 0.0, 0.0},
+			{0.0	   ,         0.0, 1.0, 0.0},
+			{0.0       ,         0.0, 0.0, 1.0}
 		});
 	}
 
 	public Vector rotation3DX(int angle) {
-		return null;
+		return vector.push(1.0).transform(new double[][] {
+			{1.0,        0.0,         0.0, 0.0},
+			{0.0, cos(angle), -sin(angle), 0.0},
+			{0.0, sin(angle),  cos(angle), 0.0},
+			{0.0,        0.0,         0.0, 1.0}
+		});
 	}
 
 	public Vector rotation3DY(int angle) {
-		return null;
+		return vector.push(1.0).transform(new double[][] {
+			{cos(angle), 0.0, sin(angle), 0.0},
+			{0.0, 		 1.0, 		 0.0, 0.0},
+			{-sin(angle),0.0, cos(angle), 0.0},
+			{0.0,        0.0,        0.0, 1.0}
+		});
 	}
 
-	public Vector rotation3DZ(int angle) {
-		return null;
-	}
 
-	// Reflexão (em todos os eixos nas dimensões 2D e 3D)
+	// TODO Reflexao (em todos os eixos nas dimensões 2D e 3D)
 	public Vector reflection2DX() {
 		return vector.transform(new double[][] {
-			{-1.0,0.0},
-			{ 0.0,1.0}
+			{ 1.0, 0.0},
+			{ 0.0,-1.0}
 		});
 	}
 
 	public Vector reflection2DY() {
 		return vector.transform(new double[][] {
-			{1.0 ,0.0},
-			{0.0,-1.0}
+			{-1.0,  0.0},
+			{ 0.0,  1.0}
 		});
 	}
 
 	public Vector reflection3DX() {
-		return null;
+		return vector.push(1.0).transform(new double[][] { 
+			{ -1.0, 0.0, 0.0, 0.0 }, 
+			{  0.0, 1.0, 0.0, 0.0 },
+			{  0.0, 0.0, 1.0, 0.0 }, 
+			{  0.0, 0.0, 0.0, 1.0 } 
+		});
 	}
 
 	public Vector reflection3DY() {
-		return null;
+		return vector.push(1.0).transform(new double[][] { 
+			{  1.0,  0.0, 0.0, 0.0 }, 
+			{  0.0, -1.0, 0.0, 0.0 },
+			{  0.0,  0.0, 1.0, 0.0 }, 
+			{  0.0,  0.0, 0.0, 1.0 } 
+		});
 	}
 
 	public Vector reflection3DZ() {
-		return null;
+		return vector.push(1.0).transform(new double[][] { 
+			{  1.0, 0.0,  0.0, 0.0 }, 
+			{  0.0, 1.0,  0.0, 0.0 },
+			{  0.0, 0.0, -1.0, 0.0 }, 
+			{  0.0, 0.0,  0.0, 1.0 } 
+		});
 	}
 
-	// Projeção (em todos os eixos em 2D e m 3D)
+	// TODO Proje�ao (em todos os eixos em 2D e m 3D)
 	public Vector projection2DX() {
-		return null;
+		return vector.transform(
+			new double[][] {
+				{1.0, 0.0},
+				{0.0, 0.0}
+			});
 	}
 
 	public Vector projection2DY() {
-		return null;
+		return vector.transform(
+			new double[][] {
+				{0.0, 0.0},
+				{0.0, 1.0}
+			});
 	}
 
 	public Vector projection3DX() {
-		return null;
+		return vector.push(1.0).transform(new double[][] { 
+			{  0.0,  0.0, 0.0, 0.0 }, 
+			{  0.0,  1.0, 0.0, 0.0 },
+			{  0.0,  0.0, 1.0, 0.0 }, 
+			{  0.0,  0.0, 0.0, 1.0 } 
+		});
 	}
 
 	public Vector projection3DY() {
-		return null;
+		return vector.push(1.0).transform(new double[][] { 
+			{  1.0,  0.0, 0.0, 0.0 }, 
+			{  0.0,  0.0, 0.0, 0.0 },
+			{  0.0,  0.0, 1.0, 0.0 }, 
+			{  0.0,  0.0, 0.0, 1.0 } 
+		});
 	}
 
 	public Vector projection3DZ() {
-		return null;
+		return vector.push(1.0).transform(new double[][] { 
+			{  1.0,  0.0, 0.0, 0.0 }, 
+			{  0.0,  1.0, 0.0, 0.0 },
+			{  0.0,  0.0, 0.0, 0.0 }, 
+			{  0.0,  0.0, 0.0, 1.0 } 
+		});
 	}
 
-	// Cisalhamento (apenas em 2D)
+	// TODO Cisalhamento (apenas em 2D)
 	public Vector shearing(int kx, int ky) {
-		return null;
+		return vector.transform(
+				new double[][] {
+					{1.0	    , (double) kx },
+					{(double) ky, 		  0.0 }
+				});
 	}
 
 	public Vector getVector() {
@@ -98,7 +158,7 @@ public class Transform {
 	}
 	
 	public static void main(String[] args) {
-//		System.out.println(new Transform(new Vector(Array.of(5.0,1.0))).rotation2D(-50));
-		System.out.println(new Vector(Array.of(5.0,1.0)).add(new Vector(Array.of(50.0,50.0))));
+		System.out.println(new Transform(new Vector(Array.of(5.0,1.0))).shearing(0, 3));
+		System.out.println(new Vector(Array.of(1.0,1.0)).push(0.0,0.0));
 	}
 }

@@ -29,6 +29,19 @@ public class Vector {
 		return new Vector(b);
 	}
 	
+	public Vector push(double ... vs) {
+		int len = this.v.length + vs.length;
+		double v[] = new double[len];
+		for( int i = 0; i < len; i++) {
+			if(i < this.v.length) {
+				v[i] = this.v[i];				
+			}else {
+				v[i] = vs[i - i];
+			}
+		}
+		return new Vector(v);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("(");
