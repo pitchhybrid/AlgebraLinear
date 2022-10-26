@@ -100,7 +100,7 @@ public class Transform {
 		});
 	}
 
-	// TODO Projeçao (em todos os eixos em 2D e m 3D)
+	// TODO Projeï¿½ao (em todos os eixos em 2D e m 3D)
 	public Vector projection2DX() {
 		return vector.transform(
 			new double[][] {
