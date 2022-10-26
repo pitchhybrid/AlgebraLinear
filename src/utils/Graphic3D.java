@@ -1,5 +1,7 @@
 package utils;
 
+import static java.lang.Math.ceil;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,7 +12,8 @@ import javax.swing.JPanel;
 
 import vector.Vector;
 
-public class Graphic extends JPanel {
+public class Graphic3D extends JPanel {
+
 	/**
 	 * 
 	 */
@@ -19,9 +22,10 @@ public class Graphic extends JPanel {
 	
 	private Vector vector;
 
-	public Graphic(int from, int width, int height) {
+	public Graphic3D(int from, int width, int height) {
 		setVisible(true);
 		setBounds(from + 20, 20, ((int) (width * 0.9)), ((int) (height * 0.9)));
+		
 	}
 
 	public void update() {
@@ -39,11 +43,12 @@ public class Graphic extends JPanel {
 		return vector;
 	}
 	
-	public void setGrade(Graphics2D g2d) {
+	public void setGrade(Graphics2D g2d, Rectangle rectangle) {
 		g2d.setStroke(new BasicStroke(0.1f));
 		g2d.setColor(Color.LIGHT_GRAY);
-		g2d.drawLine(0, -500, 0, 1000);
-		g2d.drawLine(-500, 0, 1000, 0);
+		g2d.drawLine(0, 0, 0, 1000); //Z Axis
+		g2d.drawLine(0, 0, 1000, 0);// x Axis
+		g2d.drawLine(0, 0, -1000, -1000); // yAxis
 	}
 	
 	@Override
@@ -53,14 +58,17 @@ public class Graphic extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		Rectangle rectangle = g2d.getDeviceConfiguration().getBounds();
 		g2d.translate(rectangle.getWidth() / 2.5, rectangle.getHeight() / 2);
-		g2d.scale(15, -15);
-		setGrade(g2d);
-		if(vector != null) {			
+		g2d.scale(15, 15);
+		g2d.rotate(4);
+		setGrade(g2d, rectangle);
+		if(vector != null) {
 			g2d.setStroke(new BasicStroke(0.1f));
 			g2d.setColor(Color.BLACK);
-			g2d.drawLine(0, 0, (int) Math.ceil(vector.v[0]), (int) Math.ceil(vector.v[1]));
+			double x = (int) ceil(vector.v[0]);
+			double y = (int) ceil(vector.v[1]);
+			double z = (int) ceil(vector.v[2]);
+			g2d.drawLine(0, 0, (int ) Math.ceil(x / z) ,  (int) Math.ceil(y / z));
 		}
-		
 
 	}
 

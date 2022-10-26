@@ -143,7 +143,16 @@ public class Transform {
 			{  0.0,  0.0, 0.0, 1.0 } 
 		});
 	}
-
+	
+	public Vector perpective() {
+		return vector.transform(new double[][] {
+			{1,0,0,0},
+			{0,1,0,0},
+			{0,0,1,0},
+			{0,0,1,0}
+		});
+	}
+	
 	// TODO Cisalhamento (apenas em 2D)
 	public Vector shearing(int kx, int ky) {
 		return vector.transform(

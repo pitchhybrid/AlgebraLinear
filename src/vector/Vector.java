@@ -2,6 +2,8 @@ package vector;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+import utils.NumberUtils;
+
 public class Vector {
 
 	public final double[] v;
@@ -41,13 +43,27 @@ public class Vector {
 		}
 		return new Vector(v);
 	}
+	private boolean valid(int len) {
+		if(v != null && v.length >= len) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isValid2D() {
+		return valid(2);
+	}
+	
+	public boolean isValid3D() {
+		return valid(3);
+	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("(");
+		StringBuilder sb = new StringBuilder("( ");
 		Arrays.stream(v).forEachOrdered((a) ->{
-			sb.append(a).append(",");
+			sb.append(NumberUtils.format(a).replace(",", ".")).append(", ");
 		});
-		return sb.replace(sb.length() -1, sb.length(), ")").toString();
+		return sb.replace(sb.length() -2, sb.length(), " )").toString();
 	}
 }
