@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import vector.Vector;
 
-public class Graphic extends JPanel {
+public class Graphic2D extends JPanel {
 	/**
 	 * 
 	 */
@@ -19,7 +19,7 @@ public class Graphic extends JPanel {
 	
 	private Vector vector;
 
-	public Graphic(int from, int width, int height) {
+	public Graphic2D(int from, int width, int height) {
 		setVisible(true);
 		setBounds(from + 20, 20, ((int) (width * 0.9)), ((int) (height * 0.9)));
 	}

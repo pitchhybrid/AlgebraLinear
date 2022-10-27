@@ -47,23 +47,25 @@ public class Graphic3D extends JPanel {
 		g2d.setStroke(new BasicStroke(0.1f));
 		g2d.setColor(Color.LIGHT_GRAY);
 		g2d.drawLine(0, 0, 0, 1000); //Z Axis
+		g2d.setColor(Color.LIGHT_GRAY);
 		g2d.drawLine(0, 0, 1000, 0);// x Axis
+		g2d.setColor(Color.RED);
 		g2d.drawLine(0, 0, -1000, -1000); // yAxis
+		setBackground(Color.WHITE);
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		setBackground(Color.WHITE);
 		Graphics2D g2d = (Graphics2D) g;
 		Rectangle rectangle = g2d.getDeviceConfiguration().getBounds();
-		g2d.translate(rectangle.getWidth() / 2.5, rectangle.getHeight() / 2);
+		g2d.translate(rectangle.getWidth() / 2.7, rectangle.getHeight() / 2);
 		g2d.scale(15, 15);
 		g2d.rotate(4);
 		setGrade(g2d, rectangle);
 		if(vector != null) {
-			g2d.setStroke(new BasicStroke(0.1f));
 			g2d.setColor(Color.BLACK);
+			g2d.setStroke(new BasicStroke(0.1f));
 			double x = (int) ceil(vector.v[0]);
 			double y = (int) ceil(vector.v[1]);
 			double z = (int) ceil(vector.v[2]);

@@ -22,7 +22,7 @@ public class Show extends JPanel {
 	
 	public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	public Graphic graphic = new Graphic((int) (screenSize.width * 0.12), (int) (screenSize.width * 0.9), screenSize.height);
+	public Graphic2D graphic = new Graphic2D((int) (screenSize.width * 0.12), (int) (screenSize.width * 0.9), screenSize.height);
 	
 	public Graphic3D graphic3d = new Graphic3D((int) (screenSize.width * 0.12), (int) (screenSize.width * 0.9), screenSize.height);
 
@@ -363,7 +363,7 @@ public class Show extends JPanel {
 			frame.setContentPane(new Show());
 			frame.setLayout(null);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.pack();
+//			frame.pack();
 			frame.setSize(Show.screenSize.width, Show.screenSize.height);
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
